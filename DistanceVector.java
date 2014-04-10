@@ -40,4 +40,9 @@ class node {
 class edge {
 	String target;
 	int cost;
+	
+	public edge(String t, int c){
+		target = t;
+		cost = c;
+	}
 }
