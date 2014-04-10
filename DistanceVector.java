@@ -1,12 +1,20 @@
 
 public class DistanceVector {
 
-	/**
-	 * @param args
-	 */
+	static node local;
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
+}
+
+public class node {
+	String name;
+	List<edge> edges = new ArrayList<edge>();
+}
+
+public class edge {
+	String target;
+	int cost;
 }
