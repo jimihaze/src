@@ -33,8 +33,15 @@ public class DistanceVector {
 		
 		String input;
 		while((input = br.readLine()) != null){
+			node currentNode = null;
+			for(node n: graph){
+				if(n.name == input){
+					currentNode = n;
+				}
+			}
 			String[] edgeParams = input.split("//s+");
-			localNode.edges.add(new edge(edgeParams[0], Integer.parseInt(edgeParams[1])));
+			localNode.edges.add(new edge(currentNode, Integer.parseInt(edgeParams[1])));
+			currentNode.edges.add(new edge(localNode, Integer.parseInt(edgeParams[1])));
 		}
 	}
 }
@@ -49,10 +56,10 @@ class node {
 }
 
 class edge {
-	String target;
+	node target;
 	int cost;
 	
-	public edge(String t, int c){
+	public edge(node t, int c){
 		target = t;
 		cost = c;
 	}
