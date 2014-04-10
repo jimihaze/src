@@ -10,6 +10,7 @@ public class DistanceVector {
 	static String local;
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static List<node> graph = new ArrayList<node>();
+	static node localNode = null;
 	
 	public static void main(String[] args) throws IOException {
 		String[] initNode = br.readLine().split("//s+");
@@ -24,13 +25,23 @@ public class DistanceVector {
 				graph.add(new node(initNode[i]));
 			}
 		}
+		for(node n: graph){
+			if(n.name == local){
+				localNode = n;
+			}
+		}
+		
+		String input;
+		while((input = br.readLine()) != null){
+			String[] edgeParams = input.split("//s+");
+			localNode.edges.add(new edge(edgeParams[0], Integer.parseInt(edgeParams[1])));
+		}
 	}
-
 }
 
 class node {
-	String name;
-	List<edge> edges = new ArrayList<edge>();
+	public String name;
+	public List<edge> edges = new ArrayList<edge>();
 	
 	public node(String n){
 		name = n;
