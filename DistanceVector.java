@@ -11,6 +11,7 @@ public class DistanceVector {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static List<node> graph = new ArrayList<node>();
 	static node localNode = null;
+	static node fauxLocal = null;
 	static int DVlength;
 
 	public static void main(String[] args) throws IOException {
@@ -19,7 +20,8 @@ public class DistanceVector {
 		local = br.readLine();
 		for(int i=0; i<initNode.length; i++){
 			if(initNode[i] == local){
-				graph.add(new node(local, DVlength));
+				localNode = new node(local, DVlength);
+				graph.add(localNode);
 			}
 		}
 		for(int i=0; i<initNode.length; i++){
@@ -28,7 +30,7 @@ public class DistanceVector {
 			}
 		}
 
-
+		fauxLocal = localNode;
 		String input;
 		while((input = br.readLine()) != null){
 			if(input.isEmpty()){
@@ -38,7 +40,7 @@ public class DistanceVector {
 			if(edgeParams.length == 1){
 				for(node n: graph){
 					if(n.name == edgeParams[0]){
-						localNode = n;
+						fauxLocal = n;
 					}
 				}
 			}
@@ -49,7 +51,7 @@ public class DistanceVector {
 						currentNode = n;
 					}
 				}
-				localNode.edges.add(new edge(currentNode, Integer.parseInt(edgeParams[1])));
+				fauxLocal.edges.add(new edge(currentNode, Integer.parseInt(edgeParams[1])));
 				currentNode.edges.add(new edge(localNode, Integer.parseInt(edgeParams[1])));
 			}
 		}
@@ -60,15 +62,21 @@ class node {
 	public String name;
 	public List<edge> edges = new ArrayList<edge>();
 	public int[] DV;
+	
 	public node(String n, int l){
 		name = n;
 		DV = new int[l];
 	}
+	
+	public void updateDV(){
+		for(edge e: edges){
+		}
+	}
 }
 
 class edge {
-	node target;
-	int cost;
+	public node target;
+	public int cost;
 
 	public edge(node t, int c){
 		target = t;
