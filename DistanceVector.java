@@ -29,7 +29,7 @@ public class DistanceVector {
 
 		String input;
 		while((input = br.readLine()) != null){
-			String[] edgeParams = input.split("//s+"); //maybe put this inside "if and else" if splitting a null line breaks it
+			String[] edgeParams = input.split("//s+");
 			if(edgeParams.length == 1){
 				for(node n: graph){
 					if(n.name == edgeParams[0]){
@@ -53,7 +53,7 @@ public class DistanceVector {
 
 class node {
 	public String name;
-	public List<edge> edges = new ArrayList<edge>();
+	public List<edge> edges = new ArrayList<edge>();	
 
 	public node(String n){
 		name = n;
