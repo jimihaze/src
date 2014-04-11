@@ -11,18 +11,20 @@ public class DistanceVector {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static List<node> graph = new ArrayList<node>();
 	static node localNode = null;
+	static int DVlength;
 
 	public static void main(String[] args) throws IOException {
 		String[] initNode = br.readLine().split("//s+");
+		DVlength = initNode.length;
 		local = br.readLine();
 		for(int i=0; i<initNode.length; i++){
 			if(initNode[i] == local){
-				graph.add(new node(local));
+				graph.add(new node(local, DVlength));
 			}
 		}
 		for(int i=0; i<initNode.length; i++){
 			if(initNode[i] != local){
-				graph.add(new node(initNode[i]));
+				graph.add(new node(initNode[i], DVlength));
 			}
 		}
 
@@ -57,9 +59,10 @@ public class DistanceVector {
 class node {
 	public String name;
 	public List<edge> edges = new ArrayList<edge>();
-
-	public node(String n){
+	public int[] DV;
+	public node(String n, int l){
 		name = n;
+		DV = new int[l];
 	}
 }
 
