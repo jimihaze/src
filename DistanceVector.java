@@ -69,8 +69,10 @@ class node {
 	}
 	
 	public void updateDV(){
-		for(edge e: edges){
-		}
+		/**Bellman Ford
+		For all nodes z in the graph that are not the local node
+		The distance from local to z is the min(costofedge(x,y) + Dy(z))
+		**/
 	}
 }
 
