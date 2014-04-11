@@ -20,13 +20,13 @@ public class DistanceVector {
 		local = br.readLine();
 		for(int i=0; i<initNode.length; i++){
 			if(initNode[i] == local){
-				localNode = new node(local);
+				localNode = new node(local, DVlength);
 				graph.add(localNode);
 			}
 		}
 		for(int i=0; i<initNode.length; i++){
 			if(initNode[i] != local){
-				graph.add(new node(initNode[i]));
+				graph.add(new node(initNode[i], DVlength));
 			}
 		}
 
@@ -61,9 +61,16 @@ public class DistanceVector {
 class node {
 	public String name;
 	public List<edge> edges = new ArrayList<edge>();
+	public int[] DV;
 	
-	public node(String n){
+	public node(String n, int l){
 		name = n;
+		DV = new int[l];
+	}
+	
+	public void updateDV(){
+		for(edge e: edges){
+		}
 	}
 }
 
