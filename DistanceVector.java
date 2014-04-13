@@ -15,36 +15,34 @@ public class DistanceVector {
 	static int DVlength;
 
 	public static void main(String[] args) throws IOException {
-		String[] initNode = br.readLine().split("//s+");
+		String[] initNode = br.readLine().split("//s+");  //First line of input, all nodes in the graph
 		DVlength = initNode.length;
-		local = br.readLine();
-		for(int i=0; i<initNode.length; i++){
-			if(initNode[i] == local){
-				localNode = new node(local, DVlength);
-				graph.add(localNode);
-			}
-		}
-		for(int i=0; i<initNode.length; i++){
+		local = br.readLine();  //Second input, local node
+
+		localNode = new node(local, DVlength);
+		graph.add(localNode);
+
+		for(int i=0; i<initNode.length; i++){  //Adds all non local nodes to the graph
 			if(initNode[i] != local){
 				graph.add(new node(initNode[i], DVlength));
 			}
 		}
 
-		fauxLocal = localNode;
+		fauxLocal = localNode;  //Faux local node to add edges between nodes, starts at local
 		String input;
-		while((input = br.readLine()) != null){
+		while((input = br.readLine()) != null){  //Loop on read line, to take in more edges
 			if(input.isEmpty()){
 				continue;
 			}
 			String[] edgeParams = input.split("//s+");
-			if(edgeParams.length == 1){
+			if(edgeParams.length == 1){  //Determines new faux local to add edges to that node
 				for(node n: graph){
 					if(n.name == edgeParams[0]){
 						fauxLocal = n;
 					}
 				}
 			}
-			else{
+			else{  //Actually adds edges between nodes given costs
 				node currentNode = null;
 				for(node n: graph){
 					if(n.name == edgeParams[0]){
