@@ -12,14 +12,13 @@ public class DistanceVector {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static List<node> graph = new ArrayList<node>();
 	static node localNode = null;
-	static int DVlength;
-
+	
 	public static void main(String[] args) throws IOException {
 		String[] initNode = br.readLine().split("//s+");  //First line of input, all nodes in the graph
-		DVlength = initNode.length;
 		local = br.readLine();  //Second input, local node
 
 		localNode = new node(local);
+		localNode.DV.put(localNode.name, 0);
 
 		for(int i=0; i<initNode.length; i++){  //Adds all non local nodes to the graph
 			if(initNode[i] != local){
@@ -30,24 +29,34 @@ public class DistanceVector {
 		}
 
 		String input;
-		while((input = br.readLine()) != null){
+		while((input = br.readLine()) != ""){
 			String[] edgeParams = input.split("//s+");
 			node currentNode = null;
+			int cost = 0;
 			for(node n: graph){
 				if(n.name == edgeParams[0]){
 					currentNode = n;
+					cost = Integer.parseInt(edgeParams[1]);
 					currentNode.setAdjacent(true);
 					currentNode.setDist(Integer.parseInt(edgeParams[1]));
 				}
 			}
-			localNode.edges.add(new edge(currentNode, Integer.parseInt(edgeParams[1])));
-			currentNode.edges.add(new edge(localNode, Integer.parseInt(edgeParams[1])));
+			localNode.edges.add(new edge(currentNode, cost));
+			currentNode.edges.add(new edge(localNode, cost));
+			localNode.DV.put(currentNode.name, cost);
 		}
 		
 		for(node neighbor: graph){
 			if(neighbor.adjToLocal == true){
-				
+				for(node destination: graph){
+					neighbor.Destinations.put(destination.name, -1);
+				}
+				neighbor.DV = localNode.DV;
 			}
+		}
+		
+		while((input = br.readLine()) != null){
+			
 		}
 	}
 }
@@ -58,6 +67,7 @@ class node {
 	public boolean adjToLocal;
 	public int distToLocal;
 	public HashMap<String, Integer> DV = new HashMap<String, Integer>();
+	public HashMap<String, Integer> Destinations = new HashMap<String, Integer>();
 	
 	public node(String n){
 		name = n;
