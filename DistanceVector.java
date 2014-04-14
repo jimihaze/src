@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class DistanceVector {
@@ -13,7 +14,7 @@ public class DistanceVector {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static List<node> graph = new ArrayList<node>();
 	static node localNode = null;
-	static HashMap<String, Integer> localDV = new HashMap<String, Integer>();
+	static Map<String, Integer> localDV = new HashMap<String, Integer>();
 	
 	public static void main(String[] args) throws IOException {
 		String[] initNode = br.readLine().split("//s+");  //First line of input, all nodes in the graph
@@ -59,7 +60,17 @@ public class DistanceVector {
 		
 		Iterator<String> it = localNode.DV.keySet().iterator();
 		while((input = br.readLine()) != null){
-			if(localDV != localNode.DV){
+			for(node n: graph){
+				int min = Integer.MAX_VALUE;
+				if(n.adjToLocal == true){
+					if(localNode.DV.get(n.name) < min){
+						min = localNode.DV.get(n.name);
+					}
+				}
+			}
+			
+			
+			if(!localDV.equals(localNode.DV)){
 				System.out.println(localNode.name);
 				while(it.hasNext()){
 					String key = it.next();
@@ -76,18 +87,11 @@ class node {
 	public List<edge> edges = new ArrayList<edge>();
 	public boolean adjToLocal;
 	public int distToLocal;
-	public HashMap<String, Integer> DV = new HashMap<String, Integer>();
-	public HashMap<String, Integer> Destinations = new HashMap<String, Integer>();
+	public Map<String, Integer> DV = new HashMap<String, Integer>();
+	public Map<String, Integer> Destinations = new HashMap<String, Integer>();
 	
 	public node(String n){
 		name = n;
-	}
-
-	public void updateDV(){
-		/**Bellman Ford
-		For all nodes z in the graph that are not the local node
-		The distance from local to z is the min(costofedge(x,y) + Dy(z))
-		 **/
 	}
 
 	public void setAdjacent(boolean b){
