@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -12,6 +13,7 @@ public class DistanceVector {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static List<node> graph = new ArrayList<node>();
 	static node localNode = null;
+	static HashMap<String, Integer> localDV = new HashMap<String, Integer>();
 	
 	public static void main(String[] args) throws IOException {
 		String[] initNode = br.readLine().split("//s+");  //First line of input, all nodes in the graph
@@ -55,8 +57,16 @@ public class DistanceVector {
 			}
 		}
 		
+		Iterator<String> it = localNode.DV.keySet().iterator();
 		while((input = br.readLine()) != null){
-			
+			if(localDV != localNode.DV){
+				System.out.println(localNode.name);
+				while(it.hasNext()){
+					String key = it.next();
+					System.out.println(key + " " + localNode.DV.get(key));
+					System.out.print('\n');
+				}
+			}
 		}
 	}
 }
