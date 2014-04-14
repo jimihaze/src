@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -19,7 +20,6 @@ public class DistanceVector {
 		local = br.readLine();  //Second input, local node
 
 		localNode = new node(local);
-		graph.add(localNode);
 
 		for(int i=0; i<initNode.length; i++){  //Adds all non local nodes to the graph
 			if(initNode[i] != local){
@@ -43,6 +43,12 @@ public class DistanceVector {
 			localNode.edges.add(new edge(currentNode, Integer.parseInt(edgeParams[1])));
 			currentNode.edges.add(new edge(localNode, Integer.parseInt(edgeParams[1])));
 		}
+		
+		for(node neighbor: graph){
+			if(neighbor.adjToLocal == true){
+				
+			}
+		}
 	}
 }
 
@@ -51,6 +57,7 @@ class node {
 	public List<edge> edges = new ArrayList<edge>();
 	public boolean adjToLocal;
 	public int distToLocal;
+	public HashMap<String, Integer> DV = new HashMap<String, Integer>();
 	
 	public node(String n){
 		name = n;
