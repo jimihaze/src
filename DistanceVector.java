@@ -23,7 +23,9 @@ public class DistanceVector {
 
 		for(int i=0; i<initNode.length; i++){  //Adds all non local nodes to the graph
 			if(initNode[i] != local){
-				graph.add(new node(initNode[i]));
+				node node = new node(initNode[i]);
+				graph.add(node);
+				node.setDist(-1);
 			}
 		}
 
