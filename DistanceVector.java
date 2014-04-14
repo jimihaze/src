@@ -32,7 +32,7 @@ public class DistanceVector {
 		}
 
 		String input;
-		while((input = br.readLine()) != ""){
+		while((input = br.readLine()) != null){
 			String[] edgeParams = input.split("//s+");
 			node currentNode = null;
 			int cost = 0;
@@ -42,11 +42,11 @@ public class DistanceVector {
 					cost = Integer.parseInt(edgeParams[1]);
 					currentNode.setAdjacent(true);
 					currentNode.setDist(Integer.parseInt(edgeParams[1]));
+					localNode.edges.add(new edge(currentNode, cost));
+					currentNode.edges.add(new edge(localNode, cost));
+					localNode.DV.put(currentNode.name, cost);
 				}
 			}
-			localNode.edges.add(new edge(currentNode, cost));
-			currentNode.edges.add(new edge(localNode, cost));
-			localNode.DV.put(currentNode.name, cost);
 		}
 		
 		for(node neighbor: graph){
